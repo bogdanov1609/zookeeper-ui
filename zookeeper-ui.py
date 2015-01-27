@@ -21,6 +21,8 @@ app.secret_key = '[\xaf\xbd\x1dV\xb5#\x80\xff\xa7\x9a1p\xb1\xc4\x99\x07X\xa0\xb9
 
 @app.route('/')
 def index():
+    if 'cluster' not in session:
+        session['cluster'] = 'development'
     path = "/"
     render_list = []
     breadcrumb_list = []
@@ -37,11 +39,13 @@ def index():
     except Exception as e:
         logging.exception(e)
         return render_template("5xx.html")
-    return render_template("index.html", znodes=render_list, breadcrumb_list=breadcrumb_list, now_path=path, zk_conf=zk_conf)
+    return render_template("index.html", znodes=render_list, breadcrumb_list=breadcrumb_list, now_path=path, zk_conf=zk_conf, now_cluster=session['cluster'])
 
 
 @app.route('/view/<path:path>')
 def next_znode(path):
+    if 'cluster' not in session:
+        session['cluster'] = 'development'
     render_list = []
     breadcrumb_render_list = []
     previous_znode = ''
@@ -67,7 +71,7 @@ def next_znode(path):
     except Exception as e:
         logging.exception(e)
         return render_template("5xx.html")
-    return render_template("index.html", znodes=render_list, breadcrumb_list=breadcrumb_render_list, now_path=now_path, zk_conf=zk_conf)
+    return render_template("index.html", znodes=render_list, breadcrumb_list=breadcrumb_render_list, now_path=now_path, zk_conf=zk_conf, now_cluster=session['cluster'])
 
 
 @app.route('/create', methods=['POST'])
