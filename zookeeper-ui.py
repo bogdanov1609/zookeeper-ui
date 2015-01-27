@@ -12,7 +12,7 @@ import re
 import json
 
 logging.basicConfig(format=u'%(filename)s %(funcName)20s()[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s',
-                    level=logging.INFO, filename=u"/var/log/zookeeper-ui/zookeeper-ui.log")
+                    level=logging.INFO)
 
 app = Flask(__name__)
 app.secret_key = '[\xaf\xbd\x1dV\xb5#\x80\xff\xa7\x9a1p\xb1\xc4\x99\x07X\xa0\xb9W5\xfdC'
@@ -105,7 +105,7 @@ def get_clusters():
 class ZkWork:
     def zk_connect(self, read_only_zk):
         if 'cluster' not in session:
-            session['cluster'] = 'vertis-development'
+            session['cluster'] = 'development'
 
         zk_conf = get_clusters()
         zk_servers = zk_conf[session['cluster']]
