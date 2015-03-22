@@ -1,0 +1,4 @@
+log_file: "/var/log/zookeeper-ui/zookeeper-ui.log" # where to write the log
+port: "5000" # flask default port
+conf_dir: "/etc/zookeeper-ui/conf-enable/" # the directory which contains the cluster configs
+localhost: "True" # localhost or not

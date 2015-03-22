@@ -8,12 +8,13 @@ $(function() {
             type: 'POST',
             success: function(response) {
                 console.log(response);
-                alert("Node created.");
-                location.reload(true);
+                bootbox.alert("Node '" + new_znode_name + "' created", function() {
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
-                alert("I have error: " + error)
+                bootbox.alert("I have error: " + error);
             }
         });
     });
@@ -21,24 +22,26 @@ $(function() {
 
 function delete_znode(str) {
     delete_znode = "/" + str;
-    if (confirm("Are you sure you want to delete " + delete_znode + " ?")) {
+    bootbox.confirm("Are you sure you want to delete " + delete_znode + " ?", function(result) {
+    if (result) {
         $.ajax({
             url: '/delete',
             data: "delete_znode=" + delete_znode,
             type: "POST",
             success: function(response) {
-                alert("Znode " + delete_znode + " has been deleted!");
-                location.reload(true);
+                bootbox.alert("Znode '" + delete_znode + "' has been deleted!", function() {
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
-                alert("I have error: " + error)
+                bootbox.alert("I have error: " + error);
             }
         });
     } else {
-        return false;
+        window.location.reload();
     }
-}
+})};
 
 function f_modify_znode(m_node_name){
     m_node_name_g = m_node_name;
@@ -54,12 +57,13 @@ $(function() {
             type: 'POST',
             success: function(response) {
                 console.log($('form').serialize());
-                alert("Node modifed.");
-                location.reload(true);
+                bootbox.alert("Node: '/" + node_name + "' successfully modified", function() {
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
-                alert("I have error: " + error)
+                bootbox.alert("I have error: " + error);
             }
         });
     });
@@ -77,7 +81,13 @@ function choice_cluster(cluster){
             },
         error: function(error) {
             console.log(error);
-            alert("I have error: " + error)
+            bootbox.alert("I have error: " + error);
         }
     });
 }
+
+$(document).ready(function()
+    {
+        $("#main").tablesorter();
+    }
+);

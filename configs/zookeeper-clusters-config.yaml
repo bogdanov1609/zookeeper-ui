@@ -1,0 +1,2 @@
+development: { readonly: "False", nodes: "zoo1.dev.com:2181,zoo2.dev.com:2181,zoo3.dev.com:2181", acl: "False" }
+testing: { readonly: "False", nodes: "zoo1.test.com:2181,zoo2.test.com:2181,zoo3.test.com:2181", acl: "False" }
